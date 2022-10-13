@@ -1,38 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* App */
 .App {
-  text-align: center;
+    background-color: #1D2123;
+    font-family: 'Quicksand', sans-serif;
+}
+/* Side Bar */
+.side-bar {
+    background-color: #1D2123;
+}
+.music-links {
+    background-color: #1A1E1F;
+    border-radius: 50px;
+}
+.user-links {
+    background-color: #1A1E1F;
+    border-radius: 50px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Search Bar */
+.search::placeholder {
+    color: #FFFFFF40;
+}
+.search {
+    background-color: #1D2123;;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Banner */
+.banner {
+    background-color: #609EAF;
+    border-radius: 40px;
+    overflow: hidden;
+}
+.eric,.vector {
+    right: 2px;
+    top: 0;
+}
+.eric {
+    height: 400px;
+    width: 370px;
+}
+.picture-likes img {
+    width: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Chart */
+.chart-card {
+    background-color: #1A1E1F;
+    border-radius: 20px;
+}
+.like-icon {
+    border: 2px solid #FFFFFF1C;
+    border-radius: 50%;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Home Songs */
+.song-card img{
+    border-radius: 25px;
 }
