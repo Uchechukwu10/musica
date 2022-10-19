@@ -6,10 +6,16 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import Collections from './pages/Collections';
 import ViewChart from './pages/ViewChart';
+import { MusicContext } from './assets/contexts';
+import { myCharts } from './assets/library';
+import { useState } from 'react';
 
 function App() {
+  const [chartIds, setChartIds] = useState(myCharts);
+
   return (
     <Router>
+      <MusicContext.Provider value={{chartIds, setChartIds}}>
         <div className="App relative">
           <div className='flex'>
             <SideBar />
@@ -24,6 +30,7 @@ function App() {
           </div>
             <PlayingBar />
         </div>
+      </MusicContext.Provider>
     </Router>
   );
 }

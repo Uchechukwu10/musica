@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import CollectionCard from '../components/CollectionCard';
-import {library, allCollections, myCharts} from '../assets/library';
+import {library, allCollections, myCharts, likes, gospel} from '../assets/library';
 import allSongs from '../assets/allSongs';
 import charts from '../assets/allCharts';
 import ListedSong from '../components/ListedSong';
+import { MusicContext } from '../assets/contexts';
 
 const Collections = () => {
   const [activeCollection, setActiveCollection] = useState('Library');
   const [librarySongs, setLibrarySongs] = useState([]);
   const [addedCharts, setAddedCharts] = useState([]);
   const [collectionsAll, setCollectionsAll] = useState([]);
+  const [newCollections, setNewCollections] = useState([{name: 'Likes', charts: [], songs: []}]);
+
+  const { chartIds, setChartIds } = useContext(MusicContext);
 
   const handleCollection = (collection) => {
     setActiveCollection(collection);
+  }
+
+  const addCollection = (name) => {
+      setCollectionsAll(prevValue => [...prevValue, name]);
   }
 
   const listLibraries = () => {
@@ -27,15 +35,33 @@ const Collections = () => {
     } else if (activeCollection == 'Charts') {
         return (
           <div className='flex gap-5 flex-wrap'>
-              <CollectionCard />
-              <CollectionCard />
-              <CollectionCard />
-              <CollectionCard />
-              <CollectionCard />
-              <CollectionCard />
-              <CollectionCard />
+              {addedCharts.map((chart, index) => {
+                return <CollectionCard key={index} image={chart.image} title={chart.title} desc={chart.desc}/>;
+              })}
           </div>
         )
+    } else {
+      const currentColl = newCollections.find(coll => coll.name == activeCollection);
+      return (
+        <div >
+            <div className='pb-3'>
+              <span className='text-white text-xl'>Charts</span>
+              <div className='flex gap-5 flex-wrap'>
+                  {currentColl.charts.map((chart, index) => {
+                    return <CollectionCard key={index} image={chart.image} title={chart.title} desc={chart.desc}/>
+                  })}
+              </div>
+            </div>
+            <div className='pt-4'>
+              <span className='text-white text-xl'>Songs</span>
+              <div className='flex flex-col gap-3 px-5'>
+                  {currentColl.songs.map((song, index) => {
+                    return <ListedSong key={index} image={song.image} title={song.title} artiste={song.artiste} />;
+                  })}
+              </div>
+            </div>
+        </div>
+      )
     }
   }
 
@@ -50,10 +76,22 @@ const Collections = () => {
   useEffect(() => {
     let displayCharts = [];
     charts.map((chart) => {
-        myCharts.includes(chart.id) && displayCharts.push(chart);
+        chartIds.includes(chart.id) && displayCharts.push(chart);
     });
     setAddedCharts(displayCharts);
-  }, []);
+  }, [chartIds]);
+
+  useEffect(() => {
+    let displayLikesCharts = [];
+    let displayLikesSongs = [];
+    charts.map((chart) => {
+        likes.charts.includes(chart.id) && displayLikesCharts.push(chart);
+    });
+    allSongs.map((song) => {
+        likes.songs.includes(song.id) && displayLikesSongs.push(song);
+    });
+    setNewCollections([{name: 'Likes', charts: displayLikesCharts, songs: displayLikesSongs}]);
+  }, [])
 
   useEffect(() => {
     setCollectionsAll(allCollections);  
@@ -64,13 +102,14 @@ const Collections = () => {
   return (
     <div>
         <div className='flex py-3 px-3 my-3'>
-        {collectionsAll.map((collection) => {
-          return <span className={activeCollection == collection ? 'collection-active px-4 py-2 text-lg mx-2 cursor-pointer' : 'collection-title px-4 py-2 text-lg mx-2 cursor-pointer'}  onClick={() => handleCollection(collection)}>{collection}</span>
-        })}
-        </div>
-        <div>
-          {listLibraries()}
-        </div>
+          {collectionsAll.map((collection) => {
+            return <span className={activeCollection == collection ? 'collection-active px-4 py-2 text-lg mx-2 cursor-pointer' : 'collection-title px-4 py-2 text-lg mx-2 cursor-pointer'}  onClick={() => handleCollection(collection)}>{collection}</span>
+          })}
+          <span className='text-white text-xl' onClick={() => addCollection('Gospel')}>Add Collection +</span>
+          </div>
+          <div>
+            {listLibraries()}
+          </div>
     </div>
   )
 }

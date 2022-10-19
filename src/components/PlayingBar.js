@@ -58,7 +58,7 @@ const PlayingBar = () => {
         </div>
         <div className='w-8/12'>
             <audio autoPlay src={songs[0].url} ref={audioElem} onTimeUpdate={onPlaying}/>
-            <div className='flex gap-10 justify-center items-center mt-2 mb-8'>
+            <div className='flex gap-10 justify-center items-center mt-2 mb-5'>
                 <span><BsShuffle fontSize='1.1rem' color='#FFFFFF'/></span>
                 <span><BsSkipStartFill fontSize='1.2rem' color='#FFFFFF'/></span>
                 <span onClick={playPause} className='play-button flex justify-center'>{isPlaying ? <BsFillPauseCircleFill fontSize='2rem' color='#FACD66'/> : <BsPlayCircleFill fontSize='2rem' color='#FACD66'/>}</span>
@@ -66,7 +66,7 @@ const PlayingBar = () => {
                 <span><RiRepeatOneLine fontSize='1.2rem' color='#FFFFFF'/></span>
             </div>
             <ThemeProvider theme={theme}>
-                <span><Slider onChange={handleChange} value={currentSong.progress} aria-label="Default" valueLabelDisplay="auto" color='primary'/></span>
+                <span className='mx-3'><Slider onChange={handleChange} value={currentSong.progress} aria-label="Default" valueLabelDisplay="auto" color='primary'/></span>
             </ThemeProvider>
         </div>
         <div className='flex gap-2 w-2/12 justify-center items-center'>

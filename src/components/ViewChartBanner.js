@@ -1,11 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import lead from '../images/Lead-image.png';
 import {MdLibraryAdd} from 'react-icons/md';
 import {BsPlayCircleFill} from 'react-icons/bs';
 import { RiHeart2Fill } from 'react-icons/ri';
 import charts from '../assets/allCharts';
+import {Dialog, DialogTitle} from '@mui/material';
 
 const ViewChartBanner = (props) => {
+    const [open, setOpen] = useState(false);
+    const [selectedValue, setSelectedValue] = useState('Uche');
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value) => {
+        setOpen(false);
+    };
+
+    const handleItemClick = () => {
+        setOpen(false);
+        props.addToCollection();
+    }
+
     
     useEffect(() => {
         const current = charts.find((chart) => chart.id == props.id);
@@ -27,15 +43,38 @@ const ViewChartBanner = (props) => {
             <h1 className='text-base py-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis</h1>
             <h1 className='text-base py-2'>{props.currentChart.noOfSongs} songs ~ {props.currentChart.duration}</h1>
             <div className='flex py-6'>
-                <div className='chart-banner-action flex p-3 mx-1'>
+                <div className='chart-banner-action flex p-3 mx-1 cursor-pointer'>
                     <span className='flex items-center mx-2'><BsPlayCircleFill fontSize='1.3rem' color='#FACD66'/></span>
                     <span className='text-sm mx-2'>Play all</span>
                 </div>
-                <div className='chart-banner-action flex p-3 mx-1'>
+                <div className='chart-banner-action flex p-3 mx-1 cursor-pointer' onClick={handleClickOpen}>
                     <span className='flex items-center mx-2'><MdLibraryAdd fontSize='1.3rem' color='#FACD66'/></span>
                     <span className='text-sm mx-2'>Add to collection</span>
                 </div>
-                <div className='chart-banner-action p-3 mx-1'><RiHeart2Fill fontSize='1.3rem' color='#E5524A'/></div>
+                <Dialog
+                    sx={{
+                      '& .MuiDialog-paper': {
+                          borderRadius: '10px',
+                          color: '#FFFFFF',
+                          backgroundColor: '#1A1E1F',
+                          
+                        },
+                      }}
+                    selectedValue={selectedValue}
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <DialogTitle>Add to collection</DialogTitle>
+                    <hr />
+                    <div>
+                        <ul className='flex flex-col justify-center items-center pt-3'>
+                            <li className='text-lg py-2 cursor-pointer' onClick={handleItemClick}>Charts</li>
+                            <li className='text-lg py-2 cursor-pointer' onClick={handleItemClick}>Likes</li>
+                            <li className='text-lg py-2 cursor-pointer' onClick={handleItemClick}>Gospel</li>
+                        </ul>
+                    </div>
+                </Dialog>
+                <div className='chart-banner-action p-3 mx-1 cursor-pointer'><RiHeart2Fill fontSize='1.3rem' color='#E5524A'/></div>
             </div>
         </div>
     </div>
