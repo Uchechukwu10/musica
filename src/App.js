@@ -1,25 +1,30 @@
 import './App.css';
-import Banner from './components/Banner';
-import Charts from './components/Charts';
-import HomeSongs from './components/HomeSongs';
 import PlayingBar from './components/PlayingBar';
 import SearchBar from './components/SearchBar';
 import SideBar from './components/SideBar';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from './pages/Home';
+import Collections from './pages/Collections';
+import ViewChart from './pages/ViewChart';
 
 function App() {
   return (
-    <div className="App flex">
-      <SideBar />
-      <div className='flex flex-col w-10/12'>
-        <SearchBar />
-        <div className='flex'>
-          <Banner />
-          <Charts />
+    <Router>
+        <div className="App relative">
+          <div className='flex'>
+            <SideBar />
+              <div className='flex flex-col w-10/12'>
+                <SearchBar />
+                <Routes>
+                    <Route path='/' element={ <Home /> }/>
+                    <Route path='collections' element={ <Collections /> }/>
+                    <Route path='charts/:id' element={ <ViewChart /> }/>
+                </Routes>
+              </div>
+          </div>
+            <PlayingBar />
         </div>
-        <HomeSongs />
-        <PlayingBar />
-      </div>
-    </div>
+    </Router>
   );
 }
 
