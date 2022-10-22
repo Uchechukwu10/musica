@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {MdLibraryAdd} from 'react-icons/md';
 import {BsPlayCircleFill} from 'react-icons/bs';
-import { RiHeart2Fill } from 'react-icons/ri';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import charts from '../assets/allCharts';
 import {Dialog, DialogTitle} from '@mui/material';
+import { MusicContext } from '../assets/contexts';
 
 const ViewChartBanner = (props) => {
+    const {collLikes, setCollLikes} = useContext(MusicContext);
+
     const [open, setOpen] = useState(false);
+    const [liked, setLiked] = useState(false);
     const [selectedValue, setSelectedValue] = useState('Uche');
 
     const handleClickOpen = () => {
@@ -22,6 +26,17 @@ const ViewChartBanner = (props) => {
         props.addToCollection();
     }
 
+    const handleLike = () => {
+        if (!liked) {
+            setLiked(!liked);
+            props.handleChartLike();
+        } else {
+            setLiked(!liked);
+            props.handleChartUnlike();
+        }
+        
+    }
+
     
     useEffect(() => {
         const current = charts.find((chart) => chart.id == props.id);
@@ -30,6 +45,12 @@ const ViewChartBanner = (props) => {
         return () => {
             document.body.style.background = `#1D2123`;
             document.body.style.backgroundSize = '1440px 1000px';
+        }
+    }, [])
+
+    useEffect(() => {
+        if (collLikes.charts.includes(Number(props.id))) {
+            setLiked(true);
         }
     }, [])
     
@@ -74,7 +95,7 @@ const ViewChartBanner = (props) => {
                         </ul>
                     </div>
                 </Dialog>
-                <div className='chart-banner-action p-3 mx-1 cursor-pointer'><RiHeart2Fill fontSize='1.3rem' color='#E5524A'/></div>
+                <div className='chart-banner-action p-3 mx-1 cursor-pointer' onClick={() => handleLike()}>{liked ? <FaHeart fontSize='1.3rem' color='#FACD66'/> : <FaRegHeart fontSize='1.3rem' color='#FACD66'/>}</div>
             </div>
         </div>
     </div>

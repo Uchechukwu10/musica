@@ -6,7 +6,7 @@ import HomeSongs from '../components/HomeSongs';
 const Home = () => {
   useEffect(() => {
     document.body.style.background = `#1D2123`;
-    document.body.style.backgroundSize = '1440px 1000px';
+    document.body.style.backgroundSize = '1440px auto';
   }, [])
 
   return (

@@ -9,13 +9,15 @@ import ViewChart from './pages/ViewChart';
 import { MusicContext } from './assets/contexts';
 import { myCharts } from './assets/library';
 import { useState } from 'react';
+import { likes } from './assets/library';
 
 function App() {
   const [chartIds, setChartIds] = useState(myCharts);
+  const [collLikes, setCollLikes] = useState(likes);
 
   return (
     <Router>
-      <MusicContext.Provider value={{chartIds, setChartIds}}>
+      <MusicContext.Provider value={{chartIds, setChartIds, collLikes, setCollLikes}}>
         <div className="App relative">
           <div className='flex'>
             <SideBar />

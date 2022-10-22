@@ -112,6 +112,10 @@ body {
     -webkit-backdrop-filter: blur(5px);
     border-radius: 15px;
 }
+.options-paper {
+    bottom: 27px;
+    left: -100px;
+}
 
 /* Collections */
 .collection-img {
