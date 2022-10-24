@@ -18,7 +18,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
-        charts: ['Tomorrow tunes', 'Golden age of 80s']
+        charts: ['Tomorrow tunes', 'Golden age of 80s'],
+        progress: 0
     },
     {
         id: 2,
@@ -28,7 +29,8 @@ const allSongs = [
         type: 'Single',
         duration: '4:09',
         url: 'https://cdn.trendybeatz.com/audio/Tems-Ft-Wizkid-Essence-[TrendyBeatz.com].mp3',
-        charts: ['Tomorrow tunes', 'Burna Boy essentials']
+        charts: ['Tomorrow tunes', 'Burna Boy essentials'],
+        progress: 0
     },
     {
         id: 3,
@@ -38,7 +40,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Bella-Shmurda-Ft-Omah-Lay-Philo-(TrendyBeatz.com).mp3',
-        charts: ['Burna Boy essentials', 'Golden age of 80s']
+        charts: ['Burna Boy essentials', 'Golden age of 80s'],
+        progress: 0
     },
     {
         id: 4,
@@ -48,7 +51,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Ayra-Starr-Rush-(TrendyBeatz.com).mp3',
-        charts: ['Tomorrow tunes']
+        charts: ['Tomorrow tunes'],
+        progress: 0
     },
     {
         id: 5,
@@ -58,7 +62,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Asake-Joha-(TrendyBeatz.com).mp3',
-        charts: ['Golden age of 80s']
+        charts: ['Golden age of 80s'],
+        progress: 0
     },
     {
         id: 6,
@@ -68,7 +73,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
-        charts: ['Burna Boy essentials']
+        charts: ['Burna Boy essentials'],
+        progress: 0
     },
     {
         id: 7,
@@ -78,7 +84,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Asake-Joha-(TrendyBeatz.com).mp3',
-        charts: ['Golden age of 80s', 'Tomorrow tunes', 'Burna Boy essentials']
+        charts: ['Golden age of 80s', 'Tomorrow tunes', 'Burna Boy essentials'],
+        progress: 0
     },
     {
         id: 8,
@@ -88,7 +95,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Bella-Shmurda-Ft-Omah-Lay-Philo-(TrendyBeatz.com).mp3',
-        charts: ['Tomorrow tunes', 'Golden age of 80s']
+        charts: ['Tomorrow tunes', 'Golden age of 80s'],
+        progress: 0
     },
     {
         id: 9,
@@ -98,7 +106,8 @@ const allSongs = [
         type: 'Single',
         duration: '4:09',
         url: 'https://cdn.trendybeatz.com/audio/Tems-Ft-Wizkid-Essence-[TrendyBeatz.com].mp3',
-        charts: ['Burna Boy essentials', 'Golden age of 80s']
+        charts: ['Burna Boy essentials', 'Golden age of 80s'],
+        progress: 0
     },
     {
         id: 10,
@@ -108,7 +117,8 @@ const allSongs = [
         type: 'Single',
         duration: '2:44',
         url: 'https://cdn.trendybeatz.com/audio/Ayra-Starr-Rush-(TrendyBeatz.com).mp3',
-        charts: ['Tomorrow tunes', 'Burna Boy essentials']
+        charts: ['Tomorrow tunes', 'Burna Boy essentials'],
+        progress: 0
     },
 ];
 

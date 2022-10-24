@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Slider } from '@mui/material';
-import { songs } from '../sounds';
-import song1 from '../images/song1.png';
+import allSongs from '../assets/allSongs';
 import {BsShuffle, BsPlayCircleFill, BsSkipStartFill, BsSkipEndFill, BsFillPauseCircleFill, BsFillVolumeDownFill} from 'react-icons/bs';
 import {RiRepeatOneLine} from 'react-icons/ri';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const PlayingBar = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [library, setLibrary] = useState(songs);
-    const [currentSong, setCurrentSong] = useState(songs[0]);
+    // const [currentLibrary, setCurrentLibrary] = useState([]);
+    const [songIndex, setSongIndex] = useState(0);
+    const [currentSong, setCurrentSong] = useState(allSongs[songIndex]);
     const audioElem = useRef();
 
     const theme = createTheme({
@@ -27,11 +27,17 @@ const PlayingBar = () => {
         setIsPlaying(!isPlaying);
     }
 
+    const nextSong = () => {
+        setSongIndex(prevValue => {
+          return prevValue + 1;
+        })
+    }
+
     const onPlaying = () => {
         const duration = audioElem.current.duration;
         const currentTime = audioElem.current.currentTime;
 
-        setCurrentSong({...currentSong, 'progress': (currentTime/duration) * 100, "length": duration});
+        setCurrentSong({...currentSong, progress: (currentTime/duration) * 100, length: duration});
     }
 
     const handleChange = (e) => {
@@ -42,27 +48,30 @@ const PlayingBar = () => {
     const handleVolume = (e) => {
       console.log(e.target.value);
     }
+    useEffect(() => {
+      setCurrentSong(allSongs[songIndex]);
+    },[songIndex])
 
     useEffect(() => {
         isPlaying ? audioElem.current.play() : audioElem.current.pause()
-    }, [isPlaying])
+    }, [isPlaying, currentSong])
 
   return (
     <div className='text-white pt-4 pb-1 px-7 play-bar w-full z-40 flex'>
         <div className='flex w-2/12 justify-center items-center'>
-            <img className='w-16 h-16 rounded-xl mx-2' src={song1} alt='song'/>
+            <img className='w-16 h-16 rounded-xl mx-2' src={currentSong.image} alt='song'/>
             <div className='mx-2'>
                 <h1 className='text-white text-2xl'>{currentSong.title}</h1>
-                <h1 className='text-base opacity-50'>{currentSong.artist}</h1>
+                <h1 className='text-base opacity-50'>{currentSong.artiste}</h1>
             </div>
         </div>
         <div className='w-8/12'>
-            <audio autoPlay src={songs[0].url} ref={audioElem} onTimeUpdate={onPlaying}/>
+            <audio autoPlay src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying}/>
             <div className='flex gap-10 justify-center items-center mt-2 mb-5'>
                 <span><BsShuffle fontSize='1.1rem' color='#FFFFFF'/></span>
                 <span><BsSkipStartFill fontSize='1.2rem' color='#FFFFFF'/></span>
                 <span onClick={playPause} className='play-button flex justify-center'>{isPlaying ? <BsFillPauseCircleFill fontSize='2rem' color='#FACD66'/> : <BsPlayCircleFill fontSize='2rem' color='#FACD66'/>}</span>
-                <span><BsSkipEndFill fontSize='1.2rem' color='#FFFFFF'/></span>
+                <span onClick={nextSong}><BsSkipEndFill fontSize='1.2rem' color='#FFFFFF'/></span>
                 <span><RiRepeatOneLine fontSize='1.2rem' color='#FFFFFF'/></span>
             </div>
             <ThemeProvider theme={theme}>
