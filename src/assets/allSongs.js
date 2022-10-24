@@ -33,31 +33,31 @@ const allSongs = [
     {
         id: 3,
         image: song3,
-        title: 'For my hand',
-        artiste: 'Burna Boy ft. Ed sheeran',
+        title: 'Philo',
+        artiste: 'Bella SHmurda ft. Omah Lay',
         type: 'Single',
         duration: '2:44',
-        url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
+        url: 'https://cdn.trendybeatz.com/audio/Bella-Shmurda-Ft-Omah-Lay-Philo-(TrendyBeatz.com).mp3',
         charts: ['Burna Boy essentials', 'Golden age of 80s']
     },
     {
         id: 4,
         image: song4,
-        title: 'For my hand',
-        artiste: 'Burna Boy ft. Ed sheeran',
+        title: 'Rush',
+        artiste: 'Ayra Starr',
         type: 'Single',
         duration: '2:44',
-        url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
+        url: 'https://cdn.trendybeatz.com/audio/Ayra-Starr-Rush-(TrendyBeatz.com).mp3',
         charts: ['Tomorrow tunes']
     },
     {
         id: 5,
         image: song5,
-        title: 'For my hand',
-        artiste: 'Burna Boy ft. Ed sheeran',
+        title: 'Joha',
+        artiste: 'Asake',
         type: 'Single',
         duration: '2:44',
-        url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
+        url: 'https://cdn.trendybeatz.com/audio/Asake-Joha-(TrendyBeatz.com).mp3',
         charts: ['Golden age of 80s']
     },
     {
@@ -73,21 +73,21 @@ const allSongs = [
     {
         id: 7,
         image: song7,
-        title: 'For my hand',
-        artiste: 'Burna Boy ft. Ed sheeran',
+        title: 'Joha',
+        artiste: 'Asake',
         type: 'Single',
         duration: '2:44',
-        url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
-        charts: ['Tomorrow tunes', 'Burna Boy essentials', 'Golden age of 80s']
+        url: 'https://cdn.trendybeatz.com/audio/Asake-Joha-(TrendyBeatz.com).mp3',
+        charts: ['Golden age of 80s', 'Tomorrow tunes', 'Burna Boy essentials']
     },
     {
         id: 8,
         image: song8,
-        title: 'For my hand',
-        artiste: 'Burna Boy ft. Ed sheeran',
+        title: 'Philo',
+        artiste: 'Bella SHmurda ft. Omah Lay',
         type: 'Single',
         duration: '2:44',
-        url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
+        url: 'https://cdn.trendybeatz.com/audio/Bella-Shmurda-Ft-Omah-Lay-Philo-(TrendyBeatz.com).mp3',
         charts: ['Tomorrow tunes', 'Golden age of 80s']
     },
     {
@@ -103,13 +103,13 @@ const allSongs = [
     {
         id: 10,
         image: chart2,
-        title: 'For my hand',
-        artiste: 'Burna Boy ft. Ed sheeran',
+        title: 'Rush',
+        artiste: 'Ayra Starr',
         type: 'Single',
         duration: '2:44',
-        url: 'https://cdn.trendybeatz.com/audio/Burna-Boy-Ft-Ed-Sheeran-For-My-Hand-New-Song-(TrendyBeatz.com).mp3',
-        charts: ['Tomorrow tunes', 'Burna Boy essentials', 'Golden age of 80s']
-    }
+        url: 'https://cdn.trendybeatz.com/audio/Ayra-Starr-Rush-(TrendyBeatz.com).mp3',
+        charts: ['Tomorrow tunes', 'Burna Boy essentials']
+    },
 ];
 
 export default allSongs;

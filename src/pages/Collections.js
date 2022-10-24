@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import CollectionCard from '../components/CollectionCard';
-import {library, allCollections, myCharts, likes, gospel} from '../assets/library';
+import { allCollections } from '../assets/library';
 import allSongs from '../assets/allSongs';
 import charts from '../assets/allCharts';
 import ListedSong from '../components/ListedSong';
@@ -13,7 +13,7 @@ const Collections = () => {
   const [collectionsAll, setCollectionsAll] = useState([]);
   const [newCollections, setNewCollections] = useState([{name: 'Likes', charts: [], songs: []}]);
 
-  const { chartIds, setChartIds, collLikes, setCollLikes } = useContext(MusicContext);
+  const { chartIds, collLikes, libraryIds } = useContext(MusicContext);
 
   const handleCollection = (collection) => {
     setActiveCollection(collection);
@@ -68,7 +68,7 @@ const Collections = () => {
   useEffect(() => {
     let librarySongs = [];
     allSongs.map((song) => {
-        library.includes(song.id) && librarySongs.push(song);
+        libraryIds.includes(song.id) && librarySongs.push(song);
     });
     setLibrarySongs(librarySongs);
   }, []);

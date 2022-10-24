@@ -10,7 +10,7 @@ const ViewChart = () => {
   const [chartSongs, setChartSongs] = useState([]);
   const [currentChart, setCurrentChart] =useState({});
 
-  const {chartIds, setChartIds, collLikes, setCollLikes} = useContext(MusicContext);
+  const { setChartIds, setCollLikes} = useContext(MusicContext);
   const {id} = useParams();
 
   const addToCollection = () => {
@@ -45,7 +45,7 @@ const ViewChart = () => {
       <ViewChartBanner id={id} currentChart={currentChart} addToCollection={addToCollection} handleChartLike={handleChartLike} handleChartUnlike={handleChartUnlike}/>
       <div className='flex flex-col gap-3 px-5'>
           {chartSongs.map((song, index) => (
-            <ListedSong key={index} image={song.image} title={song.title} artiste={song.artiste} />
+            <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} />
           ))}
       </div>
     </div>

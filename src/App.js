@@ -7,17 +7,17 @@ import Home from './pages/Home';
 import Collections from './pages/Collections';
 import ViewChart from './pages/ViewChart';
 import { MusicContext } from './assets/contexts';
-import { myCharts } from './assets/library';
+import { myCharts, likes, library } from './assets/library';
 import { useState } from 'react';
-import { likes } from './assets/library';
 
 function App() {
   const [chartIds, setChartIds] = useState(myCharts);
   const [collLikes, setCollLikes] = useState(likes);
+  const [libraryIds, setLibraryIds] = useState(library);
 
   return (
     <Router>
-      <MusicContext.Provider value={{chartIds, setChartIds, collLikes, setCollLikes}}>
+      <MusicContext.Provider value={{chartIds, setChartIds, collLikes, setCollLikes, libraryIds, setLibraryIds}}>
         <div className="App relative">
           <div className='flex'>
             <SideBar />
