@@ -22,7 +22,7 @@ const allSongs = [
     },
     {
         id: 2,
-        image: chart1,
+        image: song2,
         title: 'Essence',
         artiste: 'WizKid ft. Tems',
         type: 'Single',

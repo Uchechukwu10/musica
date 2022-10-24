@@ -24,7 +24,7 @@ const Collections = () => {
   }
 
   const listLibraries = () => {
-    if (activeCollection == 'Library') {
+    if (activeCollection === 'Library') {
       return (
         <div className='flex flex-col gap-3 px-5'>
               {librarySongs.map((song, index) => {
@@ -32,7 +32,7 @@ const Collections = () => {
               })}
         </div>
       )
-    } else if (activeCollection == 'Charts') {
+    } else if (activeCollection === 'Charts') {
         return (
           <div className='flex gap-5 flex-wrap'>
               {addedCharts.map((chart, index) => {
@@ -41,7 +41,7 @@ const Collections = () => {
           </div>
         )
     } else {
-      const currentColl = newCollections.find(coll => coll.name == activeCollection);
+      const currentColl = newCollections.find(coll => coll.name === activeCollection);
       return (
         <div >
             <div className='pb-3'>
@@ -68,15 +68,15 @@ const Collections = () => {
   useEffect(() => {
     let librarySongs = [];
     allSongs.map((song) => {
-        libraryIds.includes(song.id) && librarySongs.push(song);
+       return libraryIds.includes(song.id) && librarySongs.push(song);
     });
     setLibrarySongs(librarySongs);
-  }, []);
+  }, [libraryIds]);
 
   useEffect(() => {
     let displayCharts = [];
     charts.map((chart) => {
-        chartIds.includes(chart.id) && displayCharts.push(chart);
+        return chartIds.includes(chart.id) && displayCharts.push(chart);
     });
     setAddedCharts(displayCharts);
   }, [chartIds]);
@@ -86,13 +86,13 @@ const Collections = () => {
     let displayLikesSongs = [];
     console.log(collLikes);
     charts.map((chart) => {
-        collLikes.charts.includes(chart.id) && displayLikesCharts.push(chart);
+       return collLikes.charts.includes(chart.id) && displayLikesCharts.push(chart);
     });
     allSongs.map((song) => {
-        collLikes.songs.includes(song.id) && displayLikesSongs.push(song);
+        return collLikes.songs.includes(song.id) && displayLikesSongs.push(song);
     });
     setNewCollections([{name: 'Likes', charts: displayLikesCharts, songs: displayLikesSongs}]);
-  }, [])
+  }, [collLikes])
 
   useEffect(() => {
     setCollectionsAll(allCollections);
@@ -106,7 +106,7 @@ const Collections = () => {
     <div>
         <div className='flex py-3 px-3 my-3'>
           {collectionsAll.map((collection, index) => {
-            return <span key={index} className={activeCollection == collection ? 'collection-active px-4 py-2 text-lg mx-2 cursor-pointer' : 'collection-title px-4 py-2 text-lg mx-2 cursor-pointer'}  onClick={() => handleCollection(collection)}>{collection}</span>
+            return <span key={index} className={activeCollection === collection ? 'collection-active px-4 py-2 text-lg mx-2 cursor-pointer' : 'collection-title px-4 py-2 text-lg mx-2 cursor-pointer'}  onClick={() => handleCollection(collection)}>{collection}</span>
           })}
           <span className='text-white text-xl' onClick={() => addCollection('Gospel')}>Add Collection +</span>
           </div>

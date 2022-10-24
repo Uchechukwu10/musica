@@ -34,11 +34,11 @@ const ViewChart = () => {
 }
   
   useEffect(() => {
-    const current = charts.find((chart) => chart.id == id);
+    const current = charts.find((chart) => chart.id === Number(id));
     setCurrentChart(current);
     const currentSongs = allSongs.filter((song) => song.charts.includes(current.title));
     setChartSongs(currentSongs);
-  }, [])
+  }, [id])
   
   return (
     <div className='view-chart py-7'>

@@ -57,7 +57,7 @@ const ListedSong = (props) => {
     if (collLikes.songs.includes(props.id)) {
       setLiked(true);
     }
-  }, [])
+  }, [collLikes, props.id])
   
 
   return (
