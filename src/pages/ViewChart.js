@@ -10,7 +10,7 @@ const ViewChart = () => {
   const [chartSongs, setChartSongs] = useState([]);
   const [currentChart, setCurrentChart] =useState({});
 
-  const { setChartIds, setCollLikes} = useContext(MusicContext);
+  const { setChartIds, setCollLikes, setCurrentLibrary, setIsPlaying} = useContext(MusicContext);
   const {id} = useParams();
 
   const addToCollection = () => {
@@ -31,7 +31,14 @@ const ViewChart = () => {
       
       return {...prevValue, charts: chartLikes};
     });
-}
+  }
+  const playAllChart = () => {
+    const queue = allSongs.filter(song => {
+      return song.charts.includes(currentChart.title);
+    });
+    setCurrentLibrary(queue);
+    setIsPlaying(true);
+  }
   
   useEffect(() => {
     const current = charts.find((chart) => chart.id === Number(id));
@@ -42,7 +49,7 @@ const ViewChart = () => {
   
   return (
     <div className='view-chart py-7'>
-      <ViewChartBanner id={id} currentChart={currentChart} addToCollection={addToCollection} handleChartLike={handleChartLike} handleChartUnlike={handleChartUnlike}/>
+      <ViewChartBanner id={id} currentChart={currentChart} addToCollection={addToCollection} handleChartLike={handleChartLike} handleChartUnlike={handleChartUnlike} playAllChart={playAllChart}/>
       <div className='flex flex-col gap-3 px-5'>
           {chartSongs.map((song, index) => (
             <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} />

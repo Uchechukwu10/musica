@@ -1,36 +1,52 @@
-import './App.css';
-import PlayingBar from './components/PlayingBar';
-import SearchBar from './components/SearchBar';
-import SideBar from './components/SideBar';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import Home from './pages/Home';
-import Collections from './pages/Collections';
-import ViewChart from './pages/ViewChart';
-import { MusicContext } from './assets/contexts';
-import { myCharts, likes, library } from './assets/library';
-import { useState } from 'react';
+import "./App.css";
+import PlayingBar from "./components/PlayingBar";
+import SearchBar from "./components/SearchBar";
+import SideBar from "./components/SideBar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Collections from "./pages/Collections";
+import ViewChart from "./pages/ViewChart";
+import { MusicContext } from "./assets/contexts";
+import { myCharts, likes, library } from "./assets/library";
+import { useState } from "react";
+import allSongs from "./assets/allSongs";
 
 function App() {
   const [chartIds, setChartIds] = useState(myCharts);
   const [collLikes, setCollLikes] = useState(likes);
   const [libraryIds, setLibraryIds] = useState(library);
+  const [currentLibrary, setCurrentLibrary] = useState(allSongs);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <Router>
-      <MusicContext.Provider value={{chartIds, setChartIds, collLikes, setCollLikes, libraryIds, setLibraryIds}}>
+      <MusicContext.Provider
+        value={{
+          chartIds,
+          setChartIds,
+          collLikes,
+          setCollLikes,
+          libraryIds,
+          setLibraryIds,
+          currentLibrary,
+          setCurrentLibrary,
+          isPlaying,
+          setIsPlaying
+        }}
+      >
         <div className="App relative">
-          <div className='flex'>
+          <div className="flex">
             <SideBar />
-              <div className='flex flex-col w-10/12'>
-                <SearchBar />
-                <Routes>
-                    <Route path='/' element={ <Home /> }/>
-                    <Route path='collections' element={ <Collections /> }/>
-                    <Route path='charts/:id' element={ <ViewChart /> }/>
-                </Routes>
-              </div>
+            <div className="flex flex-col w-10/12">
+              <SearchBar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="collections" element={<Collections />} />
+                <Route path="charts/:id" element={<ViewChart />} />
+              </Routes>
+            </div>
           </div>
-            <PlayingBar />
+          <PlayingBar />
         </div>
       </MusicContext.Provider>
     </Router>

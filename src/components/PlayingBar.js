@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Slider } from '@mui/material';
 import allSongs from '../assets/allSongs';
 import {BsShuffle, BsPlayCircleFill, BsSkipStartFill, BsSkipEndFill, BsFillPauseCircleFill, BsFillVolumeDownFill} from 'react-icons/bs';
 import {RiRepeatOneLine} from 'react-icons/ri';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { MusicContext } from '../assets/contexts';
 
 const PlayingBar = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    // const [currentLibrary, setCurrentLibrary] = useState([]);
+    const {currentLibrary, setCurrentLibrary, isPlaying, setIsPlaying} = useContext(MusicContext);
+
     const [songIndex, setSongIndex] = useState(0);
-    const [currentSong, setCurrentSong] = useState(allSongs[songIndex]);
+    const [currentSong, setCurrentSong] = useState(currentLibrary[songIndex]);
+
     const audioElem = useRef();
 
     const theme = createTheme({
@@ -29,7 +31,21 @@ const PlayingBar = () => {
 
     const nextSong = () => {
         setSongIndex(prevValue => {
-          return prevValue + 1;
+          if (prevValue < allSongs.length-1) {
+            return prevValue + 1;
+          } else {
+            return prevValue;
+          }
+        })
+    }
+
+    const prevSong = () => {
+        setSongIndex(prevValue => {
+          if (prevValue > 0) {
+            return prevValue - 1;
+          } else {
+            return prevValue;
+          }
         })
     }
 
@@ -49,12 +65,17 @@ const PlayingBar = () => {
       console.log(e.target.value);
     }
     useEffect(() => {
-      setCurrentSong(allSongs[songIndex]);
-    },[songIndex])
+      setCurrentSong(currentLibrary[songIndex]);
+    },[songIndex, currentLibrary])
 
     useEffect(() => {
         isPlaying ? audioElem.current.play() : audioElem.current.pause()
     }, [isPlaying, currentSong])
+
+    useEffect(() => {
+      setSongIndex(0);
+    }, [currentLibrary])
+    
 
   return (
     <div className='text-white pt-4 pb-1 px-7 play-bar w-full z-40 flex'>
@@ -69,7 +90,7 @@ const PlayingBar = () => {
             <audio autoPlay src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying}/>
             <div className='flex gap-10 justify-center items-center mt-2 mb-5'>
                 <span><BsShuffle fontSize='1.1rem' color='#FFFFFF'/></span>
-                <span><BsSkipStartFill fontSize='1.2rem' color='#FFFFFF'/></span>
+                <span onClick={prevSong}><BsSkipStartFill fontSize='1.2rem' color='#FFFFFF'/></span>
                 <span onClick={playPause} className='play-button flex justify-center'>{isPlaying ? <BsFillPauseCircleFill fontSize='2rem' color='#FACD66'/> : <BsPlayCircleFill fontSize='2rem' color='#FACD66'/>}</span>
                 <span onClick={nextSong}><BsSkipEndFill fontSize='1.2rem' color='#FFFFFF'/></span>
                 <span><RiRepeatOneLine fontSize='1.2rem' color='#FFFFFF'/></span>

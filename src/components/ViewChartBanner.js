@@ -7,7 +7,7 @@ import {Dialog, DialogTitle} from '@mui/material';
 import { MusicContext } from '../assets/contexts';
 
 const ViewChartBanner = (props) => {
-    const {collLikes, setCollLikes} = useContext(MusicContext);
+    const {collLikes} = useContext(MusicContext);
 
     const [open, setOpen] = useState(false);
     const [liked, setLiked] = useState(false);
@@ -33,8 +33,7 @@ const ViewChartBanner = (props) => {
         } else {
             setLiked(!liked);
             props.handleChartUnlike();
-        }
-        
+        }    
     }
 
     
@@ -64,7 +63,7 @@ const ViewChartBanner = (props) => {
             <h1 className='text-base py-2'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis</h1>
             <h1 className='text-base py-2'>{props.currentChart.noOfSongs} songs ~ {props.currentChart.duration}</h1>
             <div className='flex py-6'>
-                <div className='chart-banner-action flex p-3 mx-1 cursor-pointer'>
+                <div className='chart-banner-action flex p-3 mx-1 cursor-pointer' onClick={props.playAllChart}>
                     <span className='flex items-center mx-2'><BsPlayCircleFill fontSize='1.3rem' color='#FACD66'/></span>
                     <span className='text-sm mx-2'>Play all</span>
                 </div>
