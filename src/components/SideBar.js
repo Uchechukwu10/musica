@@ -10,7 +10,7 @@ import { IoLogOut } from 'react-icons/io5';
 
 const SideBar = () => {
   return (
-    <div className="flex w-fit">
+    <div className="hidden md:flex w-fit">
             <div className="flex flex-col p-6 shadow text-white side-bar">
                 <div className="space-y-3">
                     <div className="flex items-center">

@@ -10,8 +10,16 @@ const ViewChart = () => {
   const [chartSongs, setChartSongs] = useState([]);
   const [currentChart, setCurrentChart] =useState({});
 
-  const { setChartIds, setCollLikes, setCurrentLibrary, setIsPlaying} = useContext(MusicContext);
+  const { setChartIds, setCollLikes, setCurrentLibrary, setIsPlaying, setSongIndex} = useContext(MusicContext);
   const {id} = useParams();
+
+  const playSong = (songId) => {
+    const queue = allSongs.filter(song => song.charts.includes(currentChart.title));
+    const selected = queue.findIndex(song => song.id===songId);
+    setCurrentLibrary(queue);
+    setSongIndex(selected);
+    setIsPlaying(true);
+  }
 
   const addToCollection = () => {
       setChartIds(prevValue => [...prevValue, Number(id)]);
@@ -33,10 +41,9 @@ const ViewChart = () => {
     });
   }
   const playAllChart = () => {
-    const queue = allSongs.filter(song => {
-      return song.charts.includes(currentChart.title);
-    });
+    const queue = allSongs.filter(song => song.charts.includes(currentChart.title));
     setCurrentLibrary(queue);
+    setSongIndex(0);
     setIsPlaying(true);
   }
   
@@ -52,7 +59,7 @@ const ViewChart = () => {
       <ViewChartBanner id={id} currentChart={currentChart} addToCollection={addToCollection} handleChartLike={handleChartLike} handleChartUnlike={handleChartUnlike} playAllChart={playAllChart}/>
       <div className='flex flex-col gap-3 px-5'>
           {chartSongs.map((song, index) => (
-            <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} />
+            <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong}/>
           ))}
       </div>
     </div>

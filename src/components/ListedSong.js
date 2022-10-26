@@ -66,7 +66,7 @@ const ListedSong = (props) => {
       <span className="flex items-center ml-4 mr-20" onClick={handleLike}>
         {liked ? <FaHeart fontSize="1.3rem" color="#FACD66"/> : <FaRegHeart fontSize="1.3rem" color="#FACD66"/>}
       </span>
-      <div className="flex w-full px-3 items-center">
+      <div className="flex w-full px-3 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
         <span className="song-text w-6/12">
           {props.title} ~ {props.artiste}
         </span>
@@ -74,7 +74,7 @@ const ListedSong = (props) => {
         <span className="song-text w-2/12">4:17</span>
         <span
           id="options"
-          className="flex items-center w-1/12 justify-end relative"
+          className="flex items-center w-1/12 justify-end relative cursor-default"
           onClick={(e) => {
             // e.stopPropagation();
             handlePaper();

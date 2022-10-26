@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <div>
-        <div className='flex'>
+        <div className='flex flex-col md:flex-row'>
             <Banner />
             <Charts />
         </div>

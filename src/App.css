@@ -80,7 +80,7 @@ body {
     /* From https://css.glass */
     background: rgba(51, 55, 59, 0.77);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     position: sticky;
@@ -141,4 +141,33 @@ body {
 .coll-play {
     background-color: #FACD66;
     border-radius: 50%;
+}
+
+/* Mobile Nav */
+.mobile-nav {
+    background-color: #1E1E1E;
+}
+.nav-item {
+    color: #EFEEE040;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 600px) {
+    .search-bar svg {
+        font-size: 2.5rem;
+    }
+    .banner {
+        border-radius: 20px;
+    }
+    .picture-likes img {
+        width: 36px;
+    }
+    .banner-heart svg{
+        font-size: 2rem;
+    }
+    .chart-card-like {
+        position: absolute;
+        right: 5px;
+        top: 15px;
+    }
 }

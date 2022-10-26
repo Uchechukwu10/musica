@@ -13,7 +13,7 @@ const Collections = () => {
   const [collectionsAll, setCollectionsAll] = useState([]);
   const [newCollections, setNewCollections] = useState([{name: 'Likes', charts: [], songs: []}]);
 
-  const { chartIds, collLikes, libraryIds } = useContext(MusicContext);
+  const { chartIds, collLikes, libraryIds, setIsPlaying, setSongIndex, setCurrentLibrary } = useContext(MusicContext);
 
   const handleCollection = (collection) => {
     setActiveCollection(collection);
@@ -23,12 +23,19 @@ const Collections = () => {
       setCollectionsAll(prevValue => [...prevValue, name]);
   }
 
+  const playSong = (songId) => {
+      const selected = librarySongs.findIndex(song => song.id===songId);
+      setCurrentLibrary(librarySongs);
+      setSongIndex(selected);
+      setIsPlaying(true);
+  }
+
   const listLibraries = () => {
     if (activeCollection === 'Library') {
       return (
         <div className='flex flex-col gap-3 px-5'>
               {librarySongs.map((song, index) => {
-                return <ListedSong key={index} image={song.image} title={song.title} artiste={song.artiste} />;
+                return <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong}/>;
               })}
         </div>
       )
