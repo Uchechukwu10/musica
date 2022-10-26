@@ -55,9 +55,9 @@ const ViewChart = () => {
   }, [id])
   
   return (
-    <div className='view-chart py-7'>
+    <div className='view-chart py-3 md:py-7'>
       <ViewChartBanner id={id} currentChart={currentChart} addToCollection={addToCollection} handleChartLike={handleChartLike} handleChartUnlike={handleChartUnlike} playAllChart={playAllChart}/>
-      <div className='flex flex-col gap-3 px-5'>
+      <div className='flex flex-col gap-3 px-2 md:px-5'>
           {chartSongs.map((song, index) => (
             <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong}/>
           ))}

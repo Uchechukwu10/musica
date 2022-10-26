@@ -6,8 +6,18 @@ import { MusicContext } from '../assets/contexts';
 const ListedSong = (props) => {
   const [songPaper, setSongPaper] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [songText, setSongText] = useState('');
 
   const { setLibraryIds, setCollLikes, collLikes } = useContext(MusicContext);
+
+  useEffect(() => {
+    const text = `${props.title} ~ ${props.artiste}`;
+    if (text.length > 22) {
+      setSongText(text.substring(0, 21) + '...');
+    } else {
+      setSongText(text);
+    }
+  },[])
 
   const addToLibrary = () => {
     setLibraryIds(prevValue => [...prevValue, Number(props.id)]);
@@ -63,10 +73,10 @@ const ListedSong = (props) => {
   return (
     <div className="flex w-full song-list p-3 text-white">
       <img src={props.image} alt="song" className="w-10 h-10 rounded-lg mx-2" />
-      <span className="flex items-center ml-4 mr-20" onClick={handleLike}>
+      <span className="hidden md:flex items-center ml-4 mr-20" onClick={handleLike}>
         {liked ? <FaHeart fontSize="1.3rem" color="#FACD66"/> : <FaRegHeart fontSize="1.3rem" color="#FACD66"/>}
       </span>
-      <div className="flex w-full px-3 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
+      <div className="hidden md:flex w-full px-3 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
         <span className="song-text w-6/12">
           {props.title} ~ {props.artiste}
         </span>
@@ -88,6 +98,34 @@ const ListedSong = (props) => {
           </div>
           <BsThreeDotsVertical fontSize="1.3rem" color="#FACD66" />
         </span>
+      </div>
+
+      <div className="mobile-song md:hidden flex w-full px-1 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
+        <div className='flex flex-col w-10/12'>
+          <span className="song-text text-sm">
+            {songText}
+          </span>
+          <span className="song-text text-xs">Single</span>
+        </div>
+        <div className='flex flex-col items-end w-2/12'>
+            <span
+              id="options"
+              className="flex relative cursor-default mb-1"
+              onClick={(e) => {
+                // e.stopPropagation();
+                handlePaper();
+              }}
+            >
+              <div className={songPaper ? "options-paper w-40 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
+                <ul>
+                  <li className="py-1 cursor-pointer">Play song</li>
+                  <li className="py-1 cursor-pointer" onClick={addToLibrary}>Add to library</li>
+                </ul>
+              </div>
+              <BsThreeDotsVertical fontSize="1.3rem" color="#FACD66" />
+            </span>
+            <span className="song-text text-sm mt-1">4:17</span>
+        </div>
       </div>
     </div>
   );
