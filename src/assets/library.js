@@ -7,10 +7,5 @@ export const likes = {
     songs: [1, 3, 4, 5, 9]
 };
 
-export const gospel = {
-    charts: [3, 1],
-    songs: [2, 4, 5, 8, 10]
-};
-
 
 export const allCollections = ['Library', 'Charts', 'Likes'];

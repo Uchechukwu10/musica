@@ -150,6 +150,12 @@ body {
 .nav-item {
     color: #EFEEE040;
 }
+/* Search List */
+.search-list {
+    background-color: #1D2123E6;
+    height: 60vh;
+    overflow-y: scroll;
+}
 
 /* Media Queries */
 @media only screen and (max-width: 600px) {

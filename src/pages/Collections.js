@@ -19,10 +19,6 @@ const Collections = () => {
     setActiveCollection(collection);
   }
 
-  const addCollection = (name) => {
-      setCollectionsAll(prevValue => [...prevValue, name]);
-  }
-
   const playSong = (songId) => {
       const selected = librarySongs.findIndex(song => song.id===songId);
       setCurrentLibrary(librarySongs);

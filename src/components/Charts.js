@@ -9,7 +9,7 @@ import 'swiper/css/scrollbar';
 const Charts = () => {
 
   return (
-        <div className='flex flex-col text-white w-full md:w-5/12'>
+        <div className=' flex flex-col text-white w-full md:w-5/12'>
             <h1 className='text-3xl font-bold'>Top Charts</h1>
             <div className='hidden md:flex flex-col my-4'>
                 {charts.map((chart, index) => (
