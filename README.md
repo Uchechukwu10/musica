@@ -4,7 +4,7 @@ I am Uchechukwu Nwankwo and I'm a Full Stack developer. I work with ReactJS for 
 
 - [**LinkedIn**](https://linkedin.com/in/uchechukwu10)
 - [**Twitter**](https://twitter.com/Maazi_Of_042)
-- [**Portfolio**](https://uchechukwu-portfolio.herokuapp.com)
+- [**Portfolio**](https://github.com/Uchechukwu10/Personal-Portfolio)
 
 ### About the Project
 Musica is inspired by an online coding challenge by @codingossy on twitter. It seeks to create a music playing platform with basic functionalities.
