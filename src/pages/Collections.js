@@ -13,7 +13,7 @@ const Collections = () => {
   const [collectionsAll, setCollectionsAll] = useState([]);
   const [newCollections, setNewCollections] = useState([{name: 'Likes', charts: [], songs: []}]);
 
-  const { chartIds, collLikes, libraryIds, setIsPlaying, setSongIndex, setCurrentLibrary } = useContext(MusicContext);
+  const { chartIds, collLikes, libraryIds, setIsPlaying, setSongIndex, setCurrentLibrary, audioElem } = useContext(MusicContext);
 
   const handleCollection = (collection) => {
     setActiveCollection(collection);
@@ -24,6 +24,7 @@ const Collections = () => {
       setCurrentLibrary(librarySongs);
       setSongIndex(selected);
       setIsPlaying(true);
+      audioElem.current.currentTime = 0;
   }
 
   const listLibraries = () => {
@@ -87,7 +88,6 @@ const Collections = () => {
   useEffect(() => {
     let displayLikesCharts = [];
     let displayLikesSongs = [];
-    console.log(collLikes);
     charts.map((chart) => {
        return collLikes.charts.includes(chart.id) && displayLikesCharts.push(chart);
     });

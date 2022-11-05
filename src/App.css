@@ -153,8 +153,11 @@ body {
 /* Search List */
 .search-list {
     background-color: #1D2123E6;
-    height: 60vh;
+    height: 67vh;
     overflow-y: scroll;
+}
+.search-list::-webkit-scrollbar {
+    display: none;
 }
 
 /* Media Queries */

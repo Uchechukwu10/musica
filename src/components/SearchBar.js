@@ -9,11 +9,12 @@ const SearchBar = (props) => {
       <form className="flex flex-row search-bar items-center my-2 md:my-6 mx-4 md:mx-10 md:p-4 w-fit">
         <BiSearch fontSize="1.5rem" color="#FFFFFF40" />
         <input
+          id='search-input' 
           type="text"
           placeholder="Search artists"
           className="hidden md:inline ml-7 text-xl search"
           onFocus={props.addFocus}
-          onBlur={props.removeFocus}
+          // onBlur={props.removeFocus}
           onChange={(e) => props.handleSearch(e)}
         />
       </form>

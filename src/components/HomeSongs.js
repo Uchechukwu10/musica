@@ -10,10 +10,15 @@ const HomeSongs = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   const resizeWindow = () => {
-    setScreenWidth(window.innerWidth);
+    if (screenWidth<768) {
+      setScreenWidth(window.innerWidth)
+    } else {
+      setScreenWidth(window.innerWidth-128)
+    }
   }
 
   useEffect(() => {
+    resizeWindow();
     window.addEventListener('resize', resizeWindow);
 
     return () => {

@@ -10,11 +10,12 @@ import Collections from "./pages/Collections";
 import ViewChart from "./pages/ViewChart";
 import { MusicContext } from "./assets/contexts";
 import { myCharts, likes, library } from "./assets/library";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import allSongs from "./assets/allSongs";
 import MobileNav from "./components/MobileNav";
 
 function App() {
+  const audioElem = useRef();
   const [chartIds, setChartIds] = useState(myCharts);
   const [collLikes, setCollLikes] = useState(likes);
   const [libraryIds, setLibraryIds] = useState(library);
@@ -24,19 +25,33 @@ function App() {
   const [opened, setOpened] = useState(false);
   const [focus, setFocus] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+  const [repeat, setRepeat] = useState('none');
 
   const addFocus = () => {
     setFocus(true);
   }
 
-  const removeFocus = () => {
-    setFocus(false);
-  }
-
   const handleSearch = (e) => {
     const text = e.target.value.toLowerCase();
     setSearchInput(text);
-}
+  }
+
+  const handleSearchOut = (e) => {
+    if (!(e.target.closest('#search-list') || e.target.closest('#search-input'))) {
+      console.log('Outer Click');
+      setFocus(false);
+    }
+  }
+
+  useEffect(() => {
+    if (focus) {
+      document.body.addEventListener('click', handleSearchOut);
+    }
+  
+    return () => {
+      document.body.removeEventListener('click', handleSearchOut);
+    }
+  }, [focus])
 
   return (
     <Router>
@@ -53,17 +68,20 @@ function App() {
           isPlaying,
           setIsPlaying,
           songIndex,
-          setSongIndex
+          setSongIndex,
+          audioElem,
+          repeat,
+          setRepeat
         }}
       >
         <div className="App relative">
           <div className="flex">
             <SideBar />
             {opened && <MobileNav setOpened={setOpened}/>}
-            <div className="flex flex-col w-full md:w-10/12 px-2 relative">
+            <div className="flex flex-col w-full md:pr-7 md:w-11/12 px-2 relative">
               <div className="flex ">
                 <LogoMenu setOpened={setOpened}/>
-                <SearchBar addFocus={addFocus} removeFocus={removeFocus} handleSearch={handleSearch} searchInput={searchInput}/>
+                <SearchBar addFocus={addFocus} handleSearch={handleSearch} searchInput={searchInput}/>
               </div>
               <SearchList focus={focus} searchInput={searchInput}/>
               <Routes>

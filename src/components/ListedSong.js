@@ -10,15 +10,6 @@ const ListedSong = (props) => {
 
   const { setLibraryIds, setCollLikes, collLikes } = useContext(MusicContext);
 
-  useEffect(() => {
-    const text = `${props.title} ~ ${props.artiste}`;
-    if (text.length > 22) {
-      setSongText(text.substring(0, 21) + '...');
-    } else {
-      setSongText(text);
-    }
-  },[])
-
   const addToLibrary = () => {
     setLibraryIds(prevValue => [...prevValue, Number(props.id)]);
   }
@@ -52,6 +43,15 @@ const ListedSong = (props) => {
         });
     }
   }
+  
+  useEffect(() => {
+    const text = `${props.title} ~ ${props.artiste}`;
+    if (text.length > 22) {
+      setSongText(text.substring(0, 21) + '...');
+    } else {
+      setSongText(text);
+    }
+  },[])
 
   useEffect(() => {
     if (songPaper) {

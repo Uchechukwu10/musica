@@ -2,16 +2,15 @@ import React, { useEffect, useRef, useState, useContext } from 'react';
 import { Slider } from '@mui/material';
 import allSongs from '../assets/allSongs';
 import {BsShuffle, BsPlayCircleFill, BsSkipStartFill, BsSkipEndFill, BsFillPauseCircleFill, BsFillVolumeDownFill} from 'react-icons/bs';
-import {RiRepeatOneLine} from 'react-icons/ri';
+import {RiRepeatOneLine, RiRepeat2Fill} from 'react-icons/ri';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { MusicContext } from '../assets/contexts';
 
 const PlayingBar = () => {
-    const {currentLibrary, isPlaying, setIsPlaying, songIndex, setSongIndex} = useContext(MusicContext);
+    const {currentLibrary, isPlaying, setIsPlaying, songIndex, setSongIndex, audioElem, repeat, setRepeat} = useContext(MusicContext);
 
     const [currentSong, setCurrentSong] = useState(currentLibrary[songIndex]);
-
-    const audioElem = useRef();
+    const [volume, setVolume] = useState(30);
 
     const theme = createTheme({
         palette: {
@@ -28,6 +27,38 @@ const PlayingBar = () => {
         setIsPlaying(!isPlaying);
     }
 
+    const renderRepeat = () => {
+      if (repeat==='one') {
+        return <RiRepeatOneLine fontSize='1.2rem' color='#FACD66'/>
+      } else if (repeat==='all') {
+        return <RiRepeat2Fill fontSize='1.2rem' color='#FACD66'/>
+      } else {
+        return <RiRepeat2Fill fontSize='1.2rem' color='#FFFFFF'/>
+      }
+    }
+
+    const handleRepeat = () => {
+      if(repeat==='one') {
+        setRepeat('none');
+      } else if (repeat==='none') {
+        setRepeat('all')
+      } else {
+        setRepeat('one')
+      }
+    }
+
+    const handleEnd = () => {
+      if (repeat==='all') {
+        console.log('play all')
+        setIsPlaying(false);
+        nextSong();
+        setIsPlaying(true);
+      } else if (repeat==='none') {
+        setIsPlaying(false);
+        audioElem.current.currentTime = 0;
+      }
+    }
+
     const nextSong = () => {
         setSongIndex(prevValue => {
           if (prevValue < currentLibrary.length-1) {
@@ -36,6 +67,7 @@ const PlayingBar = () => {
             return prevValue;
           }
         })
+        audioElem.current.currentTime = 0;
     }
 
     const prevSong = () => {
@@ -46,6 +78,7 @@ const PlayingBar = () => {
             return prevValue;
           }
         })
+        audioElem.current.currentTime = 0;
     }
 
     const onPlaying = () => {
@@ -61,7 +94,8 @@ const PlayingBar = () => {
     }
 
     const handleVolume = (e) => {
-      console.log(e.target.value);
+      const {value} = e.target;
+      setVolume(value);
     }
     useEffect(() => {
       setCurrentSong(currentLibrary[songIndex]);
@@ -69,7 +103,13 @@ const PlayingBar = () => {
 
     useEffect(() => {
         isPlaying ? audioElem.current.play() : audioElem.current.pause()
-    }, [isPlaying, currentSong])
+    }, [isPlaying, currentSong, audioElem])
+
+    useEffect(() => {
+      if (audioElem) {
+        audioElem.current.volume = volume/100
+      }
+    }, [volume, audioElem])
     
 
   return (
@@ -82,13 +122,13 @@ const PlayingBar = () => {
             </div>
         </div>
         <div className='w-4/12 md:w-7/12'>
-            <audio autoPlay src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying}/>
+            <audio autoPlay src={currentSong.url} ref={audioElem} onTimeUpdate={onPlaying} onEnded={handleEnd}/>
             <div className='hidden md:flex gap-10 justify-center items-center mt-2 mb-5'>
                 <span><BsShuffle fontSize='1.1rem' color='#FFFFFF'/></span>
                 <span onClick={prevSong}><BsSkipStartFill fontSize='1.2rem' color='#FFFFFF'/></span>
                 <span onClick={playPause} className='play-button flex justify-center'>{isPlaying ? <BsFillPauseCircleFill fontSize='2rem' color='#FACD66'/> : <BsPlayCircleFill fontSize='2rem' color='#FACD66'/>}</span>
                 <span onClick={nextSong}><BsSkipEndFill fontSize='1.2rem' color='#FFFFFF'/></span>
-                <span><RiRepeatOneLine fontSize='1.2rem' color='#FFFFFF'/></span>
+                <span onClick={handleRepeat}>{renderRepeat()}</span>
             </div>
             <div className='flex md:hidden gap-10 justify-end items-center mt-2 mb-5'>
                 <span onClick={playPause} className='play-button flex justify-center'>{isPlaying ? <BsFillPauseCircleFill fontSize='2rem' color='#FACD66'/> : <BsPlayCircleFill fontSize='2rem' color='#FACD66'/>}</span>
@@ -113,6 +153,7 @@ const PlayingBar = () => {
                         },
                       }}
                   onChange={handleVolume}
+                  value={volume}
                   aria-label="Default"
                   valueLabelDisplay="auto"
                   color='primary'
