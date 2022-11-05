@@ -26,6 +26,7 @@ function App() {
   const [focus, setFocus] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [repeat, setRepeat] = useState('none');
+  const [paperUp, setPaperUp] = useState(null);
 
   const addFocus = () => {
     setFocus(true);
@@ -71,7 +72,9 @@ function App() {
           setSongIndex,
           audioElem,
           repeat,
-          setRepeat
+          setRepeat,
+          paperUp,
+          setPaperUp
         }}
       >
         <div className="App relative">

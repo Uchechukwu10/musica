@@ -18,6 +18,9 @@ body {
     background-color: #1A1E1F;
     border-radius: 50px;
 }
+.sidebar .active svg {
+    color: #FACD66 !important;
+}
 
 /* Search Bar */
 .search::placeholder {

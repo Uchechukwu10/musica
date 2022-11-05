@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { HiHome } from 'react-icons/hi';
 import { TbPlaylist } from 'react-icons/tb';
 import { BiRadio } from 'react-icons/bi';
@@ -10,7 +10,7 @@ import { IoLogOut } from 'react-icons/io5';
 
 const SideBar = () => {
   return (
-    <div className="hidden md:flex w-fit">
+    <div className="sidebar hidden md:flex w-fit">
             <div className="flex flex-col p-6 shadow text-white side-bar">
                 <div className="space-y-3">
                     <div className="flex items-center">
@@ -26,20 +26,22 @@ const SideBar = () => {
                         <ul className="">
                             <div className='music-links py-4 px-4 my-4'>
                                 <li className="my-5">
-                                    <Link
+                                    <NavLink
+                                        end
                                         to='/'
                                         className="flex items-center p-2 space-x-3 rounded-md"
                                     >
                                         <HiHome fontSize='2rem' color='#EFEEE040'/>
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li className="my-5">
-                                    <Link
+                                    <NavLink
+                                        end
                                         to='/collections'
                                         className="flex items-center p-2 space-x-3 rounded-md"
                                     >
                                         <TbPlaylist fontSize='2rem' color='#EFEEE040'/>
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li className="my-5">
                                     <a

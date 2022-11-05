@@ -8,18 +8,19 @@ const ListedSong = (props) => {
   const [liked, setLiked] = useState(false);
   const [songText, setSongText] = useState('');
 
-  const { setLibraryIds, setCollLikes, collLikes } = useContext(MusicContext);
+  const { setLibraryIds, setCollLikes, collLikes, paperUp, setPaperUp } = useContext(MusicContext);
 
   const addToLibrary = () => {
     setLibraryIds(prevValue => [...prevValue, Number(props.id)]);
   }
 
-  const handlePaper = () => {
+  const handlePaper = (id) => {
     setSongPaper(!songPaper);
+    setPaperUp(id);
   };
 
   const handlePaperOut = (e) => {
-    if (!e.target.closest('#options')) {
+    if (!e.target.closest(`#options${paperUp}`)) {
       console.log('Outer Click');
       setSongPaper(false);
     }
@@ -83,14 +84,14 @@ const ListedSong = (props) => {
         <span className="song-text w-3/12">Single</span>
         <span className="song-text w-2/12">4:17</span>
         <span
-          id="options"
+          id={`options${props.id}`}
           className="flex items-center w-1/12 justify-end relative cursor-default"
           onClick={(e) => {
-            // e.stopPropagation();
-            handlePaper();
+            e.stopPropagation();
+            handlePaper(props.id);
           }}
         >
-          <div className={songPaper ? "options-paper w-40 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
+          <div className={songPaper && paperUp===props.id ? "options-paper w-40 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
             <ul>
               <li className="py-1 cursor-pointer">Play song</li>
               <li className="py-1 cursor-pointer" onClick={addToLibrary}>Add to library</li>
@@ -109,7 +110,7 @@ const ListedSong = (props) => {
         </div>
         <div className='flex flex-col items-end w-2/12'>
             <span
-              id="options"
+              id={`options`}
               className="flex relative cursor-default mb-1"
               onClick={(e) => {
                 // e.stopPropagation();
