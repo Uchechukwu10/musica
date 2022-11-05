@@ -87,14 +87,15 @@ const SearchList = (props) => {
         <div className="flex gap-5 flex-wrap px-4">
           {searched.charts.map((chart, index) => {
             return (
-              <ChartCard
+              <span className="w-64"><ChartCard
                 key={index}
                 img={chart.image}
                 title={chart.title}
                 desc={chart.desc}
                 duration={chart.duration}
                 id={chart.id}
-              />
+                button={true}
+              /></span>
             );
           })}
         </div>

@@ -47,9 +47,9 @@ const ChartCard = (props) => {
       <div className="w-full md:w-8/12 mx-2">
         <h1 className="text-xl">{props.title}</h1>
         <h1 className="text-base opacity-50">{props.desc}</h1>
-        <h1 className="text-base mt-5">{props.duration}</h1>
+        {!props.button && <h1 className="text-base mt-5">{props.duration}</h1>}
       </div>
-      <div
+      {!props.button && <div
         className="chart-card-like flex justify-center items-center like-icon w-10 h-10 mx-2 cursor-default"
         onClick={(e) => {
           e.stopPropagation();
@@ -61,7 +61,7 @@ const ChartCard = (props) => {
         ) : (
           <FaRegHeart fontSize="1.3rem" color="#FACD66" />
         )}
-      </div>
+      </div>}
     </div>
   );
 };
