@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RiHeart2Fill } from 'react-icons/ri';
 import eric from '../images/ericesma.png';
 import vector from '../images/vector.png';
@@ -10,6 +10,20 @@ import woman2 from '../images/woman2.png';
 
 
 const Banner = () => {
+  const [viewport, setViewport] = useState(375);
+
+  const handleResize = () => {
+    setViewport(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+  
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+  
   return (
     <div className='text-white banner w-11/12 md:w-7/12 my-5 ml-5 mr-10 relative p-8 h-fit'>
         <div className='flex flex-col'>
@@ -28,7 +42,7 @@ const Banner = () => {
                 <h1 className='text-2xl md:text-xl mx-3'>33k Likes</h1>
             </div>
         </div>
-        <img src={eric} alt='Eric' className='absolute eric z-20' />
+        {viewport>768 && <img src={eric} alt='Eric' className='absolute eric z-20' />}
         <img src={vector} alt='Vector' className='absolute vector z-10' />
     </div>
   )
