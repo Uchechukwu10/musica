@@ -156,7 +156,7 @@ body {
 /* Search List */
 .search-list {
     background-color: #1D2123E6;
-    height: 67vh;
+    min-height: 67vh;
     overflow-y: scroll;
 }
 .search-list::-webkit-scrollbar {
@@ -181,5 +181,8 @@ body {
         position: absolute;
         right: 5px;
         top: 15px;
+    }
+    .search-list {
+        min-height: 87vh;
     }
 }

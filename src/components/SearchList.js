@@ -70,7 +70,7 @@ const SearchList = (props) => {
       id='search-list'
       className={
         props.focus
-          ? "search-list flex flex-col w-full absolute z-50 top-28"
+          ? "search-list flex flex-col w-full absolute z-40 top-20 md:top-28"
           : "hidden"
       }
     >

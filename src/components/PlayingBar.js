@@ -113,7 +113,7 @@ const PlayingBar = () => {
     
 
   return (
-    <div className='text-white py-4 md:pt-4 md:pb-1 px-3 md:px-7 play-bar w-full z-40 flex'>
+    <div className='text-white py-4 md:pt-4 md:pb-1 px-3 md:px-7 play-bar w-full z-50 flex'>
         <div className='flex w-8/12 md:w-3/12 justify-center items-center'>
             <img className='w-16 h-16 rounded-xl mx-2' src={currentSong.image} alt='song'/>
             <div className='mx-2 md:p-0'>
