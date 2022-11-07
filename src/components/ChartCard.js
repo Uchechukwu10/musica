@@ -1,7 +1,23 @@
 import React, { useState, useContext, useEffect } from "react";
+import { motion } from "framer-motion";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { MusicContext } from "../assets/contexts";
+
+const items = {
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 0.5
+    }
+  },
+  hidden: {
+    scale: 0.8,
+    opacity: 0
+  }
+}
+
 
 const ChartCard = (props) => {
   const [liked, setLiked] = useState(false);
@@ -35,7 +51,8 @@ const ChartCard = (props) => {
   }, [])
 
   return (
-    <div
+    <motion.div
+      variants={items}
       onClick={() => {
         navigate(`/charts/${props.id}`);
       }}
@@ -62,7 +79,7 @@ const ChartCard = (props) => {
           <FaRegHeart fontSize="1.3rem" color="#FACD66" />
         )}
       </div>}
-    </div>
+    </motion.div>
   );
 };
 

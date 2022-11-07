@@ -66,6 +66,11 @@ body {
     background-color: #1A1E1F;
     border-radius: 20px;
     cursor: pointer;
+    transition: scale 0.5s;
+    transition: transform 1s;
+}
+.chart-card:hover {
+    scale: 1.05;
 }
 .like-icon {
     border: 2px solid #FFFFFF1C;
