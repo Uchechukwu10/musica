@@ -1,10 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { motion } from 'framer-motion';
 import CollectionCard from '../components/CollectionCard';
 import { allCollections } from '../assets/library';
 import allSongs from '../assets/allSongs';
 import charts from '../assets/allCharts';
 import ListedSong from '../components/ListedSong';
 import { MusicContext } from '../assets/contexts';
+
+const list = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 2,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
 
 const Collections = () => {
   const [activeCollection, setActiveCollection] = useState('Library');
@@ -30,11 +43,15 @@ const Collections = () => {
   const listLibraries = () => {
     if (activeCollection === 'Library') {
       return (
-        <div className='flex flex-col gap-3 px-5'>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={list}
+          className='flex flex-col gap-3 px-5'>
               {librarySongs.map((song, index) => {
-                return <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong}/>;
+                return <ListedSong key={index} i={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong} />;
               })}
-        </div>
+        </motion.div>
       )
     } else if (activeCollection === 'Charts') {
         return (
@@ -58,11 +75,16 @@ const Collections = () => {
             </div>
             <div className='pt-4'>
               <span className='text-white text-xl ml-3'>Songs</span>
-              <div className='flex flex-col gap-3 px-2 mb-4 md:px-5'>
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={list}
+                transition={{ duration: 1 }}
+                className='flex flex-col gap-3 px-2 mb-4 md:px-5'>
                   {currentColl.songs.map((song, index) => {
-                    return <ListedSong key={index} image={song.image} title={song.title} artiste={song.artiste} />;
+                    return <ListedSong key={index} i={index} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong} />;
                   })}
-              </div>
+              </motion.div>
             </div>
         </div>
       )

@@ -1,10 +1,40 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { motion } from 'framer-motion';
 import ViewChartBanner from '../components/ViewChartBanner';
 import ListedSong from '../components/ListedSong';
 import allSongs from '../assets/allSongs';
 import charts from '../assets/allCharts';
 import { useParams } from 'react-router-dom';
 import { MusicContext } from '../assets/contexts';
+
+const list = {
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+      duration: 2,
+    },
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
+
+const item = {
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: {
+      duration: 1.2,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    scale: 0.92,
+    x: -100,
+  },
+};
 
 const ViewChart = () => {
   const [chartSongs, setChartSongs] = useState([]);
@@ -57,11 +87,16 @@ const ViewChart = () => {
   return (
     <div className='view-chart py-3 md:py-7'>
       <ViewChartBanner id={id} currentChart={currentChart} addToCollection={addToCollection} handleChartLike={handleChartLike} handleChartUnlike={handleChartUnlike} playAllChart={playAllChart}/>
-      <div className='flex flex-col gap-3 px-2 md:px-5'>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={list}
+        transition={{ duration: 1 }}
+        className='flex flex-col gap-3 px-2 md:px-5'>
           {chartSongs.map((song, index) => (
-            <ListedSong key={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong}/>
+            <ListedSong key={index} i={index} id={song.id} image={song.image} title={song.title} artiste={song.artiste} playSong={playSong} item={item}/>
           ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

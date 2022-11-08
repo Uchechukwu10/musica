@@ -3,7 +3,7 @@ import PlayingBar from "./components/PlayingBar";
 import SearchBar from "./components/SearchBar";
 import SideBar from "./components/SideBar";
 import LogoMenu from "./components/LogoMenu";
-import SearchList from "./components/SearchList";
+import SearchList from "./pages/SearchList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Collections from "./pages/Collections";
@@ -74,7 +74,9 @@ function App() {
           repeat,
           setRepeat,
           paperUp,
-          setPaperUp
+          setPaperUp,
+          focus,
+          searchInput
         }}
       >
         <div className="App relative">
@@ -86,11 +88,11 @@ function App() {
                 <LogoMenu setOpened={setOpened}/>
                 <SearchBar addFocus={addFocus} handleSearch={handleSearch} searchInput={searchInput}/>
               </div>
-              <SearchList focus={focus} searchInput={searchInput}/>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="collections" element={<Collections />} />
-                <Route path="charts/:id" element={<ViewChart />} />
+                <Route path="/collections" element={<Collections />} />
+                <Route path="/search" element={<SearchList />} />
+                <Route path="/charts/:id" element={<ViewChart />} />
               </Routes>
             </div>
           </div>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BiSearch } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = (props) => {
 
   const [viewport, setViewport] = useState(375);
   const [mobileIcon, setMobileIcon] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleResize = () => {
     setViewport(window.innerWidth);

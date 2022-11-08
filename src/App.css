@@ -66,8 +66,7 @@ body {
     background-color: #1A1E1F;
     border-radius: 20px;
     cursor: pointer;
-    transition: scale 0.5s;
-    transition: transform 1s;
+    transition: scale 0.75s;
 }
 .chart-card:hover {
     scale: 1.05;
@@ -80,6 +79,13 @@ body {
 /* Home Songs */
 .song-card img{
     border-radius: 25px;
+}
+.song-card {
+    cursor: pointer;
+    transition: transform 0.75s;
+}
+.song-card:hover {
+    transform: scale(0.9);
 }
 
 /* Playing Bar */

@@ -1,6 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { BsPlayCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+
+const item = {
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5
+    }
+  },
+  hidden: {
+    y: 20,
+    opacity: 0.6
+  }
+}
 
 const CollectionCard = (props) => {
   let navigate = useNavigate();
@@ -20,20 +35,24 @@ const CollectionCard = (props) => {
   }
 
   const handleHover = () => {
-    image.current.style.backgroundSize = `${1.1*imageWidth}px ${1.1*imageHeight}px`;
     setDetails(true);
+    image.current.style.backgroundSize = `${1.1*imageWidth}px ${1.1*imageHeight}px`;
   };
 
   const handleOut = () => {
-    image.current.style.backgroundSize = `${imageWidth}px ${imageHeight}px`;
     setDetails(false);
+    image.current.style.backgroundSize = `${imageWidth}px ${imageHeight}px`;
   };
 
   useEffect(() => {
     image.current.style.background = `linear-gradient(179.89deg, rgba(0, 0, 0, 0) 0.1%, rgba(15, 18, 19, 0.85) 80.67%), url(${props.image})`;
     image.current.style.backgroundRepeat = "no-repeat";
-    image.current.style.backgroundSize = `${imageWidth}px ${imageHeight}px`;
-  }, [imageWidth]);
+    if (details) {
+      image.current.style.backgroundSize = `${1.1*imageWidth}px ${1.1*imageHeight}px`;
+    } else {
+      image.current.style.backgroundSize = `${imageWidth}px ${imageHeight}px`;
+    }
+  }, [imageWidth, details]);
 
   useEffect(() => {
     resizeWindow();
@@ -45,7 +64,10 @@ const CollectionCard = (props) => {
   }, [])
 
   return (
-    <div
+    <motion.div
+      key={details}
+      initial='hidden'
+      animate='visible'
       className="collection-card relative my-1 mx-3 w-11/12 md:w-52 h-56 cursor-pointer"
       onMouseOver={handleHover}
       onMouseOut={handleOut}
@@ -55,19 +77,20 @@ const CollectionCard = (props) => {
       <div className="absolute left-5 bottom-4 text-white">
         <h1 className="text-2xl">{props.title}</h1>
         <h1 className="text-xs ">{props.desc}</h1>
-        <h1 className={"text-xs mt-2 " + (details ? "" : "hidden")}>
+        <motion.h1 variants={item} className={"text-xs mt-2 " + (details ? "" : "hidden")}>
           2.5M likes
-        </h1>
+        </motion.h1>
       </div>
-      <div
+      <motion.div
+        variants={item}
         className={
           "flex items-center coll-play w-fit absolute right-5 bottom-7 " +
           (details ? "" : "hidden")
         }
       >
         <BsPlayCircleFill fontSize="2rem" color="#7d643c" />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

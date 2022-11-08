@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MusicContext } from "../assets/contexts";
-import ChartCard from "./ChartCard";
-import ListedSong from "./ListedSong";
+import ChartCard from "../components/ChartCard";
+import ListedSong from "../components/ListedSong";
 import { likes } from "../assets/library";
 import allSongs from "../assets/allSongs";
 import charts from "../assets/allCharts";
@@ -15,7 +15,7 @@ const SearchList = (props) => {
     songs: [],
   });
 
-  const { setCurrentLibrary, setSongIndex, setIsPlaying, audioElem } = useContext(MusicContext);
+  const { setCurrentLibrary, setSongIndex, setIsPlaying, audioElem, focus, searchInput } = useContext(MusicContext);
 
   const playSong = (songId) => {
     const selected = allSongs.find((song) => song.id===songId);
@@ -35,22 +35,22 @@ const SearchList = (props) => {
   }, [nowPlaying]);
 
   useEffect(() => {
-    if (props.searchInput !== "") {
+    if (searchInput !== "") {
       let displayMatchedCharts = [];
       let displayMatchedSongs = [];
 
       charts.map((chart) => {
         if (
-          chart.title.toLowerCase().includes(props.searchInput) ||
-          chart.desc.toLowerCase().includes(props.searchInput)
+          chart.title.toLowerCase().includes(searchInput) ||
+          chart.desc.toLowerCase().includes(searchInput)
         ) {
           displayMatchedCharts.push(chart);
         }
       });
       allSongs.map((song) => {
         if (
-          song.title.toLowerCase().includes(props.searchInput) ||
-          song.artiste.toLowerCase().includes(props.searchInput)
+          song.title.toLowerCase().includes(searchInput) ||
+          song.artiste.toLowerCase().includes(searchInput)
         ) {
           displayMatchedSongs.push(song);
         }
@@ -63,13 +63,13 @@ const SearchList = (props) => {
     } else {
       setSearched({ name: "Likes", charts: [], songs: [] });
     }
-  }, [props.searchInput]);
+  }, [searchInput]);
 
   return (
     <div
       id='search-list'
       className={
-        props.focus
+        focus
           ? "search-list flex flex-col w-full absolute z-40 top-20 md:top-28"
           : "hidden"
       }
@@ -125,12 +125,12 @@ const SearchList = (props) => {
           })}
         </div>
       </div>
-      {searched.charts.length === 0 && searched.songs.length === 0 && props.searchInput !== '' && (
+      {searched.charts.length === 0 && searched.songs.length === 0 && searchInput !== '' && (
         <div className="flex justify-center items-center text-white text-2xl font-bold">
           No results found. Try another search
         </div>
       )}
-      {props.searchInput==='' && <div></div>}
+      {searchInput==='' && <div></div>}
     </div>
   );
 };

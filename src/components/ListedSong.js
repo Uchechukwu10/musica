@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { motion } from "framer-motion";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MusicContext } from '../assets/contexts';
@@ -7,6 +8,21 @@ const ListedSong = (props) => {
   const [songPaper, setSongPaper] = useState(false);
   const [liked, setLiked] = useState(false);
   const [songText, setSongText] = useState('');
+
+  const item = {
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
+        delay: props.i * 0.3
+      },
+    },
+    hidden: {
+      opacity: 0,
+      x: -100,
+    },
+  };
 
   const { setLibraryIds, setCollLikes, collLikes, paperUp, setPaperUp } = useContext(MusicContext);
 
@@ -72,7 +88,7 @@ const ListedSong = (props) => {
   
 
   return (
-    <div className="flex w-full song-list p-3 text-white">
+    <motion.div variants={item} className="flex w-full song-list p-3 text-white">
       <img src={props.image} alt="song" className="w-10 h-10 rounded-lg mx-2" />
       <span className="hidden md:flex items-center ml-4 mr-20" onClick={handleLike}>
         {liked ? <FaHeart fontSize="1.3rem" color="#FACD66"/> : <FaRegHeart fontSize="1.3rem" color="#FACD66"/>}
@@ -128,7 +144,7 @@ const ListedSong = (props) => {
             <span className="song-text text-sm mt-1">4:17</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
