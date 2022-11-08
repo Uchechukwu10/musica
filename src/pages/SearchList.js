@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { MusicContext } from "../assets/contexts";
 import ChartCard from "../components/ChartCard";
 import ListedSong from "../components/ListedSong";
-import { likes } from "../assets/library";
 import allSongs from "../assets/allSongs";
 import charts from "../assets/allCharts";
+import { useNavigate } from "react-router-dom";
 
 const SearchList = (props) => {
   const [nowPlaying, setNowPlaying] = useState([]);
@@ -15,12 +15,19 @@ const SearchList = (props) => {
     songs: [],
   });
 
-  const { setCurrentLibrary, setSongIndex, setIsPlaying, audioElem, focus, searchInput } = useContext(MusicContext);
+  const navigate = useNavigate();
+
+  const { setCurrentLibrary, setSongIndex, setIsPlaying, audioElem, searchInput, setSearchInput } = useContext(MusicContext);
 
   const playSong = (songId) => {
     const selected = allSongs.find((song) => song.id===songId);
     setSearchedSong(songId);
     setNowPlaying(prevValue => [...prevValue, selected]);
+  }
+
+  const handleCancel = () => {
+    navigate(-1);
+    setSearchInput('');
   }
 
   useEffect(() => {
@@ -46,6 +53,7 @@ const SearchList = (props) => {
         ) {
           displayMatchedCharts.push(chart);
         }
+        return null
       });
       allSongs.map((song) => {
         if (
@@ -54,6 +62,7 @@ const SearchList = (props) => {
         ) {
           displayMatchedSongs.push(song);
         }
+        return null
       });
       setSearched({
         name: "Likes",
@@ -65,15 +74,17 @@ const SearchList = (props) => {
     }
   }, [searchInput]);
 
+  useEffect(() => {
+    document.body.style.background = `#1D2123`;
+    document.body.style.backgroundSize = '1440px auto'; 
+  }, [])
+
   return (
     <div
       id='search-list'
-      className={
-        focus
-          ? "search-list flex flex-col w-full absolute z-40 top-20 md:top-28"
-          : "hidden"
-      }
+      className="search-list flex flex-col w-full relative z-40"
     >
+      <span onClick={() => handleCancel()} className="text-white absolute right-5 top-0 cursor-pointer">Cancel</span>
       <div className="pb-3">
         <span
           className={
@@ -84,7 +95,7 @@ const SearchList = (props) => {
         >
           Charts
         </span>
-        <div className="flex gap-5 flex-wrap px-4">
+        <div className="flex gap-5 flex-wrap px-4" onClick={() => navigate(-1)}>
           {searched.charts.map((chart, index) => {
             return (
               <span className="w-64"><ChartCard
@@ -110,7 +121,7 @@ const SearchList = (props) => {
         >
           Songs
         </span>
-        <div className="flex flex-col w-full gap-3 px-2 mb-4 md:px-5">
+        <div className="flex flex-col w-full gap-3 px-2 mb-4 md:px-5" onClick={() => navigate(-1)}>
           {searched.songs.map((song, index) => {
             return (
               <ListedSong

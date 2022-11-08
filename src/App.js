@@ -4,13 +4,13 @@ import SearchBar from "./components/SearchBar";
 import SideBar from "./components/SideBar";
 import LogoMenu from "./components/LogoMenu";
 import SearchList from "./pages/SearchList";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Collections from "./pages/Collections";
 import ViewChart from "./pages/ViewChart";
 import { MusicContext } from "./assets/contexts";
 import { myCharts, likes, library } from "./assets/library";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import allSongs from "./assets/allSongs";
 import MobileNav from "./components/MobileNav";
 
@@ -28,31 +28,10 @@ function App() {
   const [repeat, setRepeat] = useState('none');
   const [paperUp, setPaperUp] = useState(null);
 
-  const addFocus = () => {
-    setFocus(true);
-  }
-
   const handleSearch = (e) => {
     const text = e.target.value.toLowerCase();
     setSearchInput(text);
   }
-
-  const handleSearchOut = (e) => {
-    if (!(e.target.closest('#search-list') || e.target.closest('#search-input'))) {
-      console.log('Outer Click');
-      setFocus(false);
-    }
-  }
-
-  useEffect(() => {
-    if (focus) {
-      document.body.addEventListener('click', handleSearchOut);
-    }
-  
-    return () => {
-      document.body.removeEventListener('click', handleSearchOut);
-    }
-  }, [focus])
 
   return (
     <Router>
@@ -75,8 +54,8 @@ function App() {
           setRepeat,
           paperUp,
           setPaperUp,
-          focus,
-          searchInput
+          searchInput,
+          setSearchInput
         }}
       >
         <div className="App relative">
@@ -86,7 +65,7 @@ function App() {
             <div className="flex flex-col w-full md:pr-7 md:w-11/12 px-2 relative">
               <div className="flex ">
                 <LogoMenu setOpened={setOpened}/>
-                <SearchBar addFocus={addFocus} handleSearch={handleSearch} searchInput={searchInput}/>
+                <SearchBar handleSearch={handleSearch} searchInput={searchInput}/>
               </div>
               <Routes>
                 <Route path="/" element={<Home />} />

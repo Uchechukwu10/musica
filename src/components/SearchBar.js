@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BiSearch } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { MusicContext } from "../assets/contexts";
 
 const SearchBar = (props) => {
 
@@ -8,6 +9,8 @@ const SearchBar = (props) => {
   const [mobileIcon, setMobileIcon] = useState(true);
 
   const navigate = useNavigate();
+
+  const { searchInput } = useContext(MusicContext);
 
   const handleResize = () => {
     setViewport(window.innerWidth);
@@ -33,8 +36,9 @@ const SearchBar = (props) => {
           id='search-input' 
           type="text"
           placeholder="Search artists"
+          value={searchInput}
           className="hidden md:inline ml-7 text-xl search"
-          onFocus={props.addFocus}
+          onFocus={() => navigate('/search')}
           // onBlur={props.removeFocus}
           onChange={(e) => props.handleSearch(e)}
         />
@@ -43,7 +47,7 @@ const SearchBar = (props) => {
           type="text"
           placeholder="Search artists"
           className="w-40 md:hidden ml-7 text-xl search"
-          onFocus={props.addFocus}
+          onFocus={() => navigate('/search')}
           onBlur={() => setMobileIcon(true)}
           onChange={(e) => props.handleSearch(e)}
         />}
