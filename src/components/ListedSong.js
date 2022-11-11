@@ -27,7 +27,7 @@ const ListedSong = (props) => {
     },
   };
 
-  const { libraryIds, setLibraryIds, setCollLikes, collLikes, paperUp, setPaperUp } = useContext(MusicContext);
+  const { libraryIds, setLibraryIds, setCollLikes, collLikes, paperUp, setPaperUp, searchInput } = useContext(MusicContext);
 
   const resizeWindow = () => {
     setScreenWidth(window.innerWidth);
@@ -83,7 +83,7 @@ const ListedSong = (props) => {
     } else {
       setSongText(text);
     }
-  },[])
+  },[searchInput])
 
   useEffect(() => {
     if (songPaper) {
