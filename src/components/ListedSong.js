@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { motion } from "framer-motion";
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -8,6 +8,9 @@ const ListedSong = (props) => {
   const [songPaper, setSongPaper] = useState(false);
   const [liked, setLiked] = useState(false);
   const [songText, setSongText] = useState('');
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const option = useRef();
 
   const item = {
     visible: {
@@ -24,10 +27,22 @@ const ListedSong = (props) => {
     },
   };
 
-  const { setLibraryIds, setCollLikes, collLikes, paperUp, setPaperUp } = useContext(MusicContext);
+  const { libraryIds, setLibraryIds, setCollLikes, collLikes, paperUp, setPaperUp } = useContext(MusicContext);
+
+  const resizeWindow = () => {
+    setScreenWidth(window.innerWidth);
+}
 
   const addToLibrary = () => {
     setLibraryIds(prevValue => [...prevValue, Number(props.id)]);
+  }
+
+  const removeFromLibrary = () => {
+    setLibraryIds(prevValue => {
+      const library = prevValue.filter(song => song!==props.id);
+
+      return library;
+    })
   }
 
   const handlePaper = (id) => {
@@ -36,8 +51,8 @@ const ListedSong = (props) => {
   };
 
   const handlePaperOut = (e) => {
+    setSongPaper(false);
     if (!e.target.closest(`#options${paperUp}`)) {
-      console.log('Outer Click');
       setSongPaper(false);
     }
   }
@@ -85,6 +100,14 @@ const ListedSong = (props) => {
       setLiked(true);
     }
   }, [collLikes, props.id])
+
+  useEffect(() => {
+    window.addEventListener('resize', resizeWindow);
+
+    return () => {
+      window.removeEventListener('resize', resizeWindow);
+    }
+}, [])
   
 
   return (
@@ -93,7 +116,8 @@ const ListedSong = (props) => {
       <span className="hidden md:flex items-center ml-4 mr-20" onClick={handleLike}>
         {liked ? <FaHeart fontSize="1.3rem" color="#FACD66"/> : <FaRegHeart fontSize="1.3rem" color="#FACD66"/>}
       </span>
-      <div className="hidden md:flex w-full px-3 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
+      {screenWidth>768 ?
+      <div className="flex w-full px-3 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
         <span className="song-text w-6/12">
           {props.title} ~ {props.artiste}
         </span>
@@ -107,17 +131,20 @@ const ListedSong = (props) => {
             handlePaper(props.id);
           }}
         >
-          <div className={songPaper && paperUp===props.id ? "options-paper w-40 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
+          <div className={songPaper && paperUp===props.id ? "options-paper w-48 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
             <ul>
               <li className="py-1 cursor-pointer">Play song</li>
-              <li className="py-1 cursor-pointer" onClick={addToLibrary}>Add to library</li>
+              <hr className='opacity-60'/>
+              {!libraryIds.includes(props.id) ?
+              <li className="py-1 cursor-pointer" onClick={addToLibrary}>Add to library</li> :
+              <li className="py-1 cursor-pointer" onClick={removeFromLibrary}>Remove from library</li>}
             </ul>
           </div>
           <BsThreeDotsVertical fontSize="1.3rem" color="#FACD66" />
         </span>
       </div>
-
-      <div className="mobile-song md:hidden flex w-full px-1 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
+          :
+      <div className="mobile-song flex w-full px-1 items-center cursor-pointer" onClick={() => props.playSong(props.id)}>
         <div className='flex flex-col w-10/12'>
           <span className="song-text text-sm">
             {songText}
@@ -126,24 +153,27 @@ const ListedSong = (props) => {
         </div>
         <div className='flex flex-col items-end w-2/12'>
             <span
-              id={`options`}
+              id={`options${props.id}`}
               className="flex relative cursor-default mb-1"
               onClick={(e) => {
-                // e.stopPropagation();
-                handlePaper();
+                e.stopPropagation();
+                handlePaper(props.id);
               }}
             >
-              <div className={songPaper ? "options-paper w-40 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
+              <div className={songPaper && paperUp===props.id ? "options-paper w-40 text-white absolute z-40 p-4 rounded-lg" : "hidden"}>
                 <ul>
                   <li className="py-1 cursor-pointer">Play song</li>
-                  <li className="py-1 cursor-pointer" onClick={addToLibrary}>Add to library</li>
+                  <hr className='opacity-60'/>
+                  {!libraryIds.includes(props.id) ?
+                  <li className="py-1 cursor-pointer" onClick={addToLibrary}>Add to library</li> :
+                  <li className="py-1 cursor-pointer" onClick={removeFromLibrary}>Remove from library</li>}
                 </ul>
               </div>
               <BsThreeDotsVertical fontSize="1.3rem" color="#FACD66" />
             </span>
             <span className="song-text text-sm mt-1">4:17</span>
         </div>
-      </div>
+      </div>}
     </motion.div>
   );
 };
